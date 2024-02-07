@@ -16,6 +16,10 @@ const server = http.createServer((req, res) => {
       filename = "contact.html";
       res.statusCode = 200;
       break;
+    case "/contact-us":
+      res.statusCode = 301;
+      res.setHeader("Location", "/contact");
+      break;
     default:
       filename = "404.html";
       res.statusCode = 404;
