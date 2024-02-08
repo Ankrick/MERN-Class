@@ -5,13 +5,22 @@
     <meta name="viewport" content="width=, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <nave>
         <a href="/">home</a>
         <a href="/about">about</a>
         <a href="/contact">contact</a>
     </nave>
-    <h1>Home page Update</h1>
-    <p>This is html file</p>
+    
+    <% if(blogs.length) { %>
+        <% blogs.forEach(blog => { %>
+            <h1><%= blog.title %></h1>
+            <%= blog.intro %>
+        <% }) %>
+    <% } else { %>
+        <h3>No Blogs found.</h3>
+    <% } %>
+
 </body>
 </html>

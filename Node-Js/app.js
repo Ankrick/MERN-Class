@@ -5,7 +5,15 @@ app.set("views", "./views");
 app.set("view engine", "ejs");
 
 app.get("/", (req, res) => {
-  res.render("home");
+  let blogs = [
+    // { title: "Blog title update 1", intro: "this is blog intro 1" },
+    // { title: "Blog title 2", intro: "this is blog intro 2" },
+    // { title: "Blog title 3", intro: "this is blog intro 3" },
+  ];
+
+  res.render("home", {
+    blogs,
+  });
 });
 
 app.get("/about", (req, res) => {
