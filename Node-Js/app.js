@@ -1,12 +1,15 @@
 const express = require("express");
 const app = express();
 
+app.set("views", "./views");
+app.set("view engine", "ejs");
+
 app.get("/", (req, res) => {
-  res.sendFile("./views/home.html", { root: __dirname });
+  res.render("home");
 });
 
 app.get("/about", (req, res) => {
-  res.sendFile("./views/about.html", { root: __dirname });
+  res.render("about");
 });
 
 app.get("/about-us", (req, res) => {
@@ -14,7 +17,7 @@ app.get("/about-us", (req, res) => {
 });
 
 app.get("/contact", (req, res) => {
-  res.sendFile("./views/contact.html", { root: __dirname });
+  res.render("contact");
 });
 
 app.get("/contact-us", (req, res) => {
@@ -22,7 +25,7 @@ app.get("/contact-us", (req, res) => {
 });
 
 app.use((req, res) => {
-  res.sendFile("./views/404.html", { root: __dirname });
+  res.render("404");
   res.status(404);
 });
 
