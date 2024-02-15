@@ -35,3 +35,40 @@ nav a:hover {
 .blog-card{
     margin: 20px 0;
 }
+
+/*blog create style code*/
+
+.blog-form {
+    max-width: 800px;
+    margin: auto;
+    border: 1px solid lightgreen;
+    padding: 40px;
+  }
+  
+  .blog-form h1 {
+    color: green;
+  }
+  
+  .form-group {
+    margin: 10px 0;
+  }
+  .form-group label {
+    font-size: 18px;
+  }
+  
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid green;
+  }
+  
+  .blog-create-btn {
+    background-color: green;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 20px;
+    border: 1px solid green;
+    color: white;
+  }

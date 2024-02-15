@@ -1,5 +1,8 @@
 const express = require("express");
 const app = express();
+
+app.use(express.urlencoded({extended:true}));
+
 let morgan = require('morgan');
 const mongoose = require('mongoose')
 const Blog = require('./models/Blogs')
@@ -53,6 +56,20 @@ app.get("/", async(req, res) => {
     blogs,
     title: "Home"
   });
+});
+
+app.post("/blogs", async(req, res) => {
+  let {title, intro, body} = req.body;
+
+  let blog = new Blog({
+    title,
+    intro,
+    body 
+  });
+
+  await blog.save();
+  res.redirect('/');
+
 });
 
 app.get("/about", (req, res) => {
