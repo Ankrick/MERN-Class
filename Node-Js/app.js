@@ -40,11 +40,7 @@ app.get('/add-blog', async (req, res)=>{
   res.send('blog saved'); 
 })
 
-//single blog finder
-app.get('/single-blog', async (req, res)=>{
-  let blog = await Blog.findById('65cafc7bee23938fbb6257c8');
-  res.json(blog);
-})
+
 
 
 //sorting blogs by time
@@ -93,6 +89,20 @@ app.get("/blogs/create", (req, res) => {
     title: "Blog Create"
   });
 });
+
+//single blog finder
+app.get('/blogs/:id', async (req, res, next)=>{
+  try{
+  let id = req.params.id
+  let blog = await Blog.findById(id);
+  res.render('blogs/show', {
+    blog,
+    title : "Blog Detail"
+  })}catch(e){
+    console.log(e);
+    next()
+  }
+})
 
 app.get("/contact-us", (req, res) => {
   res.redirect("/contact", {
