@@ -7,6 +7,7 @@ import Modal from './components/Modal/index'
 
 function App() {
 
+  let [showModal, setShowModal] = useState(false);
   let [posts, setPost] = useState([
     {
       id : 1,
@@ -27,16 +28,14 @@ function App() {
 
   return (
     <>
-      <Navbar/>
+      <Navbar setShowModal={setShowModal}/>
       <PostsList posts={posts}/>
-      <Modal>
+      {showModal && <Modal>
 
           <h1>Zoom class is available now.</h1>
           <p>feel free to <a href="">Join Now</a></p>
-      </Modal>
-      <Modal>
-        <h1>Terms and Conditions</h1>
-      </Modal>
+          <button onClick={()=>setShowModal(false)}>close</button>
+      </Modal>}
     </>
   );
 }
