@@ -30,7 +30,7 @@ function App() {
     <>
       <Navbar setShowModal={setShowModal}/>
       <PostsList posts={posts}/>
-      {showModal && <Modal>
+      {showModal && <Modal >
 
           <h1>Zoom class is available now.</h1>
           <p>feel free to <a href="">Join Now</a></p>
