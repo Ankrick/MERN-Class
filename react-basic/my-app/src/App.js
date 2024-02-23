@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Navbar from './components/Navbar/index';
 import PostsList from './components/PostsList/index'
 import Modal from './components/Modal/index'
+import PostForm from './components/PostForm'
 
 function App() {
 
@@ -17,24 +18,20 @@ function App() {
       id : 2,
       title : 'Second Post'
     },
-    {
-      id : 3,
-      title : 'Third Post'
-    }
-  ]);
+    ]);
 
-
+  let addPost = (post) => {
+    setPost(prevState => [...prevState, post])
+    setShowModal(false);
+  }
 
 
   return (
     <>
       <Navbar setShowModal={setShowModal}/>
       <PostsList posts={posts}/>
-      {showModal && <Modal >
-
-          <h1>Zoom class is available now.</h1>
-          <p>feel free to <a href="">Join Now</a></p>
-          <button onClick={()=>setShowModal(false)}>close</button>
+      {showModal && <Modal setShowModal={setShowModal}>
+        <PostForm addPost={addPost}/>
       </Modal>}
     </>
   );
