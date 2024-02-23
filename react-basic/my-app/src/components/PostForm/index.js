@@ -7,6 +7,7 @@ export default function Index({addPost}) {
 
     // let [title, setTitle] = useState("")
     let title = useRef()
+    let [status, setStatus] = useState("upcoming")
 
     let resetForm = () => {
         title.current.value = ''
@@ -17,7 +18,8 @@ export default function Index({addPost}) {
         
         let post = {
             id : Math.floor(Math.random()*10000),
-            title : title.current.value
+            title : title.current.value,
+            status : status
         }
 
         addPost(post)
@@ -29,6 +31,14 @@ export default function Index({addPost}) {
         <div className="form-control">
             <label htmlFor="">Title</label>
             <input type="text" ref={title}/>
+        </div>
+        <div className="form-control">
+            <label htmlFor="">Status</label>
+            <select name ="" id="" value={status} onChange={(e)=>setStatus(e.target.value)}>
+                <option value="dropped">Dropped</option>
+                <option value="ongoing">Ongnig</option>
+                <option value="upcoming">Upcoming</option>
+            </select>
         </div>
         <div className="form-control">
             <button type='submit'>Post Now</button>
