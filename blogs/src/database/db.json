@@ -1,0 +1,22 @@
+{
+    "blogs" : [
+        {
+            "id" : 1,
+            "title" : "What is react js ?",
+            "author" : "Thu Ta Nyan",
+            "body" : "react provides reactivity to your web app which means your app doesn't need to refresh each time client wants to change a page"
+        },
+        {
+            "id" : 2,
+            "title" : "What is laravel ?",
+            "author" : "Creative Coder",
+            "body" : "react provides reactivity to your web app which means your app doesn't need to refresh each time client wants to change a page"
+        },
+        {
+            "id" : 3,
+            "title" : "What is vue ?",
+            "author" : "Kyaw Gyi",
+            "body" : "react provides reactivity to your web app which means your app doesn't need to refresh each time client wants to change a page"
+        }
+    ]
+}
