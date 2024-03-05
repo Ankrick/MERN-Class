@@ -22,5 +22,5 @@ app.get('/', (req,res) => {
     return res.json({hello : 'world'});
 });
 
-app.use('/api/recipes',recipesRoutes);
+app.use('/api/recipes', recipesRoutes);
 
