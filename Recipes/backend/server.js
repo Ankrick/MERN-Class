@@ -2,6 +2,7 @@ const express = require('express');
 require('dotenv').config()
 const morgan = require('morgan')
 const app = express();
+const cors = require('cors');
 
 //mongodb
 const mongoose = require('mongoose')
@@ -15,6 +16,7 @@ mongoose.connect(mongoURL).then(() => {
 
 const recipesRoutes = require('./routes/recipes')
 
+app.use(cors()); //security WARNING
 app.use(express.json());
 app.use(morgan('dev'))
 
