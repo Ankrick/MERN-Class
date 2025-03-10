@@ -11,7 +11,7 @@ router.post('', [
     body('description').notEmpty(),
     body('ingredients').notEmpty().isArray({min : 3})
 ], handleErrorMessages, RecipeController.store);
-router.get('/:id', RecipeController.show);
+router.get('/:id',  RecipeController.show);
 router.delete('/:id', RecipeController.destory);
 router.delete('/', RecipeController.destoryAll);
 router.patch('/:id', RecipeController.update);

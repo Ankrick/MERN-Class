@@ -4,6 +4,10 @@ import App from './App.jsx'
 import About from './pages/About.jsx'
 import Contact from './pages/Contact.jsx'
 import RecipeForm from './pages/RecipeForm.jsx'
+import SignUpForm from './pages/SignUpForm.jsx'
+import SignInForm from './pages/SignInForm.jsx'
+import { AuthContextProvider } from './contexts/AuthContext.jsx'
+
 import './index.css'
 import {
   createBrowserRouter,
@@ -35,11 +39,19 @@ const router = createBrowserRouter([
       {
         path: "/recipes/edit/:id",
         element: <RecipeForm/>
+      },
+      {
+        path: "/sign-up",
+        element: <SignUpForm/>
+      },
+      {
+        path: "/sign-in",
+        element: <SignInForm/>
       }
     ]
   },
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <RouterProvider router={router} />
+  <AuthContextProvider><RouterProvider router={router} /></AuthContextProvider>
 )
