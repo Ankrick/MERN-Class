@@ -1,15 +1,16 @@
 const Users = require("../models/Users");
 const createToken = require('../helpers/createToken')
-const cookieParser = require('cookie-parser');
-const { TokenExpiredError } = require("jsonwebtoken");
 
 const UserController = {
+    me : async(req, res) => {
+        return res.json(req.user);
+    },
     login : async (req, res) => {
         try{
             let {email, password} = req.body;
             let user = await Users.login(email, password)
             let token = createToken(user._id);
-            res.cookie('jwt', token, {httpOnly : true, maxAge : 3*24*60*60*1000});
+            res.cookie('jwt', token, {httpOnly : true, maxAge : 3 * 24 * 60 * 60 * 1000});
             return res.json({user,token})
 
         }catch(e){

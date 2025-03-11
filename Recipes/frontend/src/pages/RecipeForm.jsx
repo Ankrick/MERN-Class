@@ -12,6 +12,8 @@ export default function RecipeForm() {
   let [newIngredients, setNewIngredients] = useState('');
 
   let [title, setTitle] = useState('');
+  let [file, setFile] = useState(null);
+  let [preview, setPreview] = useState(null);
   let [description, setDescription] = useState('');
   let [errors, setErrors] =useState([]);
 
@@ -20,6 +22,7 @@ export default function RecipeForm() {
       if (id) {
         let res = await axios('/api/recipes/'+ id);
         if(res.status === 200){
+          setPreview(import.meta.env.VITE_BACKEND_URL + res.data.recipe.photo)
           setTitle(res.data.recipe.title)
           setDescription(res.data.recipe.description)
           setIngredients(res.data.recipe.ingredients)
@@ -45,9 +48,25 @@ export default function RecipeForm() {
       let res;
       if(id) {
         res = await axios.patch('/api/recipes/' + id, recipe);
+        console.log(res)
       }else{
         res = await axios.post('/api/recipes', recipe);
       }
+
+      //file
+      let formData = new FormData;
+      formData.set('photo', file);
+
+      //upload
+      let uploadRes = await axios.post(`/api/recipes/${res.data._id}/upload`, 
+        formData, {
+          headers : {
+            Accept : "multipart/form-data"
+          }
+        }
+      )
+
+      console.log(uploadRes)
       if(res.status == 200){
         navigate('/')
       }
@@ -55,6 +74,19 @@ export default function RecipeForm() {
     }catch(e) {
       setErrors(Object.keys(e.response.data.errors));
     }
+  }
+
+  let upload = (e) => {
+    let file = e.target.files[0];
+    setFile(file);
+    //preview
+    let fileReader = new FileReader;
+
+    fileReader.onload = (e) => {
+      setPreview(e.target.result)
+    }
+
+    fileReader.readAsDataURL(file);
   }
 
   return (
@@ -66,6 +98,8 @@ export default function RecipeForm() {
                   <li key={i} className='text-red-500 text-sm'>{error} is invalid</li>
               ))} 
             </ul>
+            <input type="file" onChange={upload}></input>
+            {preview && <img src={preview} alt=""></img>}
             <input value={title} onChange={e => setTitle(e.target.value)} type="text" placeholder='Recipe Title' className='w-full p-1'/>
             <textarea value={description} onChange={e => setDescription(e.target.value)} placeholder='Recipe Description' rows="5" className="w-full p-1"/>
             <div className='flex space-x-2 items-center'>
@@ -75,7 +109,7 @@ export default function RecipeForm() {
             <div>
               <Ingredients ingredients={ingredients}/>
             </div>
-            <button type='submit' className='w-full px-3 py-1 rounded-full bg-orange-400 text-white'>{id? 'Update' : 'Create'}Recipe</button>
+            <button type='submit' className='w-full px-3 py-1 rounded-full bg-orange-400 text-white'>{id? 'Update' : 'Create'} Recipe</button>
         </form>
     </div>
   )

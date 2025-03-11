@@ -2,6 +2,7 @@ const express = require('express');
 require('dotenv').config()
 const morgan = require('morgan')
 const app = express();
+app.use(express.static('public'));
 const cors = require('cors');
 const cookieParser = require('cookie-parser')
 

@@ -1,4 +1,5 @@
 import { createContext, useEffect, useReducer } from "react";
+import axios from 'axios';
 
 const AuthContext = createContext();
 
@@ -24,12 +25,17 @@ const AuthContextProvider = ({children}) => {
 
     useEffect(() => {
         try {
-            let user = JSON.parse(localStorage.getItem('user'));
-            if(user){
-                dispatch({ type : 'LOGIN', payload : user })
-            }else{
-                dispatch({ type : 'LOGOUT' })
-        }} catch(e){
+
+            axios.get('/api/users/me').then(res => {
+                let user = res.data;
+                if (user){
+                    dispatch({ type: 'LOGIN', payload: user})
+                }else {
+                    dispatch({ type: 'LOGOUT' })
+                }
+            })
+            
+        } catch(e){
             dispatch({ type : 'LOGOUT' });
         }
     }, [])
