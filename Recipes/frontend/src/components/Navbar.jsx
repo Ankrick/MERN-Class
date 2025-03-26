@@ -25,6 +25,7 @@ export default function Navbar(){
                 <h1 className="font-bold text-2xl text-orange-400">Recipicity</h1>
             </div>
             <ul className="flex space-x-10">
+                {!!user && <li><Link to ="/" className="hover:text-orange-400">{user.name}</Link></li>}
                 <li><Link to ="/" className="hover:text-orange-400">Home</Link></li>
                 <li><Link to ="/about" className="hover:text-orange-400">About</Link></li>
                 <li><Link to ="/contact" className="hover:text-orange-400">Contact</Link></li>

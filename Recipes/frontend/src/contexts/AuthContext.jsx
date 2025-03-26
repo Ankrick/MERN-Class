@@ -25,7 +25,6 @@ const AuthContextProvider = ({children}) => {
 
     useEffect(() => {
         try {
-
             axios.get('/api/users/me').then(res => {
                 let user = res.data;
                 if (user){
@@ -34,7 +33,6 @@ const AuthContextProvider = ({children}) => {
                     dispatch({ type: 'LOGOUT' })
                 }
             })
-            
         } catch(e){
             dispatch({ type : 'LOGOUT' });
         }

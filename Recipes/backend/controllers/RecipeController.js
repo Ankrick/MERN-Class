@@ -1,6 +1,20 @@
 const Recipes = require("../models/Recipes");
 const mongoose = require('mongoose')
 const removeFile = require('../helpers/removeFile');
+const sendEmail = require("../helpers/sendEmail");
+const Users = require("../models/Users");
+
+const Queue = require('bull');
+const emailQueue = new Queue('emailQueue', {
+     redis: { port: 6379, host: '127.0.0.1' }
+}); // Specify Redis connection using object
+
+emailQueue.process(async (job) => {
+
+    setTimeout(async() => {
+        await sendEmail(job.data);
+    }, 5000)
+})
 
 const RecipeController = {
     index : async (req, res) => {
@@ -35,15 +49,37 @@ const RecipeController = {
         return res.json(response);
     },
     store : async (req, res) => {
-        {
-            const {title, description, ingredients} = req.body;
+        try {
+            {
+                const {title, description, ingredients} = req.body;
+    
+                const recipe = await Recipes.create({
+                title,
+                description,
+                ingredients
+            });
 
-            const recipe = await Recipes.create({
-            title,
-            description,
-            ingredients
-        });
-        return res.json(recipe);
+            let allUsers = await Users.find(null, ['email']);
+            let emails = allUsers.map(user => user.email)
+            emails = emails.filter(emails => emails !== req.user.email)
+
+            //email queue
+            emailQueue.add({
+                viewFileName : 'email',
+                data : {
+                        name : req.user.name,
+                        recipe
+                    },
+                from : req.user.email,
+                to : emails,
+                subject : "New Recipe is created by someone."
+                })
+
+
+            return res.json(recipe);
+            }
+        }catch(e){
+            return res.status(500).json({ msg : e.message})
         }
     },
     show : async (req, res) => {

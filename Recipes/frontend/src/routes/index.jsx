@@ -23,7 +23,7 @@ export default function index() {
           element: <App/>,
           children: [
             {
-              path: "",
+              path: "/",
               element: user ? <Home/> : <Navigate to={'/sign-in'}/>
             },
             {
