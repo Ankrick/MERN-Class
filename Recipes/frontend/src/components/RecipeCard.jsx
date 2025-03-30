@@ -14,7 +14,7 @@ export default function RecipeCard({recipe, onDeleted}) {
 
   return (
         <div className="bg-white p-5 rounded-2xl space-y-3">
-            <img className='mx-auto h-64 object-contain' src={import.meta.env.VITE_BACKEND_URL + recipe.photo} alt=""></img>
+            <img className='mx-auto h-64 object-contain' src={import.meta.env.VITE_BACKEND_ASSET_URL + recipe.photo} alt=""></img>
             <div className="flex justify-between">
               <h3 className="text-xl font-bold text-orange-400">{recipe.title}</h3>
               <div className='space-x-3'>
