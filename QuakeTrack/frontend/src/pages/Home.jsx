@@ -6,16 +6,26 @@ import { AiOutlineExclamationCircle } from "react-icons/ai";
 
 export default function Home(){
 
-    const [alert, setAlert] = useState(null);
-    const [eq, setEq] = useState(null);
+    //mm data
+    const [alertmm, setAlertmm] = useState(null);
+    const [eqmm, setEqmm] = useState(null);
+
+    //thailand data
+    const [alertth, setAlertth] = useState(null);
+    const [eqth, setEqth] = useState(null);
 
     useEffect(() => {
         const fetchEarthquakes = async () => {
             try {
                 const res = await axios.get('http://localhost:8000/api/earthquakes');
-                const sortedEq = res.data;
-                setAlert(sortedEq[0])
-                setEq(res.data)
+                const myanmarEq = res.data.myanmarEarthquakes;
+                setAlertmm(myanmarEq[0])
+                setEqmm(myanmarEq)
+
+                const thailandEq = res.data.thailandEarthquakes;
+                setAlertth(thailandEq[0])
+                setEqth(thailandEq)
+
             }catch(e){
                 res.status(500).json({msg : e.message});
             }
@@ -25,36 +35,71 @@ export default function Home(){
     }, [])
 
 
-    if (!alert) {
+    if (!alertmm || !alertth) {
         return <div className='text-center'>Loading...</div>;
     }
 
-    console.log(eq)
+
+    console.log(eqth);
+
     
     return (
-            <div>
-                <div className='bg-red-600 px-8 py-4 w-2/3 rounded-md mx-auto'>
+            <div className='min-h-screen'>
+                <div className='bg-red-600 px-8 py-4 w-2/3 rounded-md mx-auto shadow-md'>
                     <div className="flex justify space-x-3">
                         <p className='text-3xl text-white mt-0.5'><AiOutlineExclamationCircle /></p>
-                        <h1 className='text-2xl text-white font-bold'>{alert.properties.mag} Magnitude Earthquake Alert</h1>
+                        <h1 className='text-2xl text-white font-bold'>Earthquake Alert</h1>
                     </div>
                     <div className="mt-5">
                         <ul>
-                            <p className='text-white font-semibold text-sm ml-10'>Magnitude {alert.properties.mag} earthquake is detected in {alert.properties.place} at time {new Date(alert.properties.time).toLocaleString()}</p>
+                            <p className='text-white font-semibold text-sm ml-10'>Magnitude {alertmm.properties.mag} earthquake is detected in {alertmm.properties.place} at time {new Date(alertmm.properties.time).toLocaleString()}</p>
                         </ul>
                     </div>
                 </div>
                 <div>
-                    {eq.map((earthquake, index) => (
-                        <div key={index} className="mt-4 bg-gray-400">
-                            <ul>
-                                <li>{earthquake.properties.title}</li>
-                                <li>{earthquake.properties.mag}</li>
-                                <li>{earthquake.properties.place}</li>
-                                <li>{new Date(alert.properties.time).toLocaleString()}</li>
-                            </ul>
-                        </div>
-                    ))}
+                <div className='px-8 py-4 w-2/3 rounded-md border border-blue-200 shadow-sm mx-auto mt-4'>
+                    <div className="flex justify space-x-3">
+                        <p className='text-3xl mt-0.5'><AiOutlineExclamationCircle /></p>
+                        <h1 className='text-2xl font-bold'>{alertmm.properties.mag} Magnitude</h1>
+                    </div>
+                    <div className="mt-5">
+                        <ul>
+                            <li className='font-semibold text-sm ml-10'>Magnitude : {alertmm.properties.mag}</li>
+                            <li className='font-semibold text-sm ml-10'>Location : {alertmm.properties.place} </li>
+                            <li className='font-semibold text-sm ml-10'>Time : {new Date(alertmm.properties.time).toLocaleString()}</li>
+                        </ul>
+                    </div>
+                    </div>
+                </div>
+                <div className='w-2/3 mx-auto grid grid-cols-2 gap-4'>
+                    <div className='border mt-4'>
+                        <ul>
+                            {eqmm.map((earthquake, index) => (
+                                <li key={index} className="mt-4 p-4 rounded-md">
+                                    <div>
+                                        <p>{earthquake.properties.title}</p>
+                                        <p>{earthquake.properties.mag}</p>
+                                        <p>{earthquake.properties.place}</p>
+                                        <p>{new Date(earthquake.properties.time).toLocaleString()}</p>
+                                    </div>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                    <div className='border mt-4'>
+                        <ul>
+                            {eqth.map((earthquake, index) => (
+                                <li key={index} className="mt-4 p-4 rounded-md">
+                                    <div>
+                                        <p>{earthquake.properties.title}</p>
+                                        <p>{earthquake.properties.mag}</p>
+                                        <p>{earthquake.properties.place}</p>
+                                        <p>{new Date(earthquake.properties.time).toLocaleString()}</p>
+                                    </div>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
                 </div> 
             </div>
       );

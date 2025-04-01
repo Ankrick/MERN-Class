@@ -46,10 +46,13 @@ app.get('/api/earthquakes', async (req, res) => {
         const myanmarEarthquakes = myanmarResponse.data && Array.isArray(myanmarResponse.data.features) ? myanmarResponse.data.features : [];
         const thailandEarthquakes = thailandResponse.data && Array.isArray(thailandResponse.data.features) ? thailandResponse.data.features : [];
 
-        // Merge both arrays
-        const combinedEarthquakes = [...myanmarEarthquakes, ...thailandEarthquakes];
+        // Merge both arrays in json
+        const combinedEarthquakes = {
+            myanmarEarthquakes,
+            thailandEarthquakes
+        }
 
-        if (combinedEarthquakes.length > 0) {
+        if (!!combinedEarthquakes) {
             res.json(combinedEarthquakes);
         } else {
             console.log('Error: No valid earthquake data found.');
