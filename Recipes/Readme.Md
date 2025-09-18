@@ -6,13 +6,15 @@ This Web App is built using MERN stack
 Run Locally
 Clone the project
 ```
-   git clone https://github.com/Ankrick/Bookstore-Project.git
+   git clone https://github.com/Ankrick/MERN-Class.git
 ```
+
+Go to Recipes Folder
    
 Go to the frontend directory
 
 ```
-  cd Bookstore-Project
+  cd Recipes
   
   cd frontend
 ```
@@ -34,7 +36,7 @@ Go to the backend directory
 ```
   npm install
 
-  npm run dev
+  npm run start
 ```
 and then
 
