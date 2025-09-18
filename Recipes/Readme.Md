@@ -1,6 +1,6 @@
-Bookstore Platform
+Recipicity
 This Web App is built using MERN stack
-
+By building this project, I learned about simple CRUD operations. Creating Schemas, using MongoDB and also learned about uploading photos, using cookies, utilizing middleware validations and implementing user login, registers
 
 
 Run Locally
